@@ -223,7 +223,6 @@ static std::string dataFile = "ranges.txt";
 			m.printValues();
 		}
 		while (true) {
-			std::cout << "Now in Main Loop" << std::endl;
 			I1=false;
                 	I2=false;
                 	I3=false;
