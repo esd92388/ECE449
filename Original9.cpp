@@ -119,7 +119,11 @@ static std::string dataFile = "ranges.txt";
 		fromfile >> minT1 >> maxT1 >> minT2 >> maxT2 >> minT3 >> maxT3;
 		fromfile.close();
 	}
+<<<<<<< HEAD
 };
+=======
+}
+>>>>>>> 5f43d6ddc43c8c9f8cb6e5075416df205425c039
  
         void storeTime1() {
                 t1 = std::chrono::high_resolution_clock::now();
@@ -138,6 +142,7 @@ static std::string dataFile = "ranges.txt";
 	
 	void playSound(std::string s){
 		if(s == "Harder"){
+<<<<<<< HEAD
 			system("sudo omxplayer -o local /home/pi/SeniorDesign/tmp/ECE449/Bell1.mp3 &> /dev/null");
 			std::cout <<"Harder";
 		}
@@ -151,6 +156,21 @@ static std::string dataFile = "ranges.txt";
 		}
 		if(s == "Stronger"){
 			system("sudo omxplayer -o local /home/pi/SeniorDesign/tmp/ECE449/Bell4.mp3 &> /dev/null");
+=======
+			system("sudo mpg321 --stereo -q /home/pi/SeniorDesign/tmp/ECE449/Bell1.mp3");
+			std::cout <<"Harder";
+		}
+		if(s == "Better"){
+			system("sudo mpg321 --stereo -q /home/pi/SeniorDesign/tmp/ECE449/Bell2.mp3");
+			std::cout <<"Better";
+		}
+		if(s == "Faster"){
+			system("sudo mpg321 --stereo -q /home/pi/SeniorDesign/tmp/ECE449/Bell3.mp3");
+			std::cout <<"Faster";
+		}
+		if(s == "Stronger"){
+			system("sudo mpg321 --stereo -q /home/pi/SeniorDesign/tmp/ECE449/Bell4.mp3");
+>>>>>>> 5f43d6ddc43c8c9f8cb6e5075416df205425c039
 			std::cout <<"Stronger";
 		}
 	}

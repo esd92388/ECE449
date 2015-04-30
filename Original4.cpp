@@ -10,7 +10,11 @@ extern "C" {
 }
  
 static int const geophone1=1; //18
+<<<<<<< HEAD
 static int const geophone2=4; //24
+=======
+static int const geophone2=4; //27
+>>>>>>> 5f43d6ddc43c8c9f8cb6e5075416df205425c039
 static int const geophone3=6; //25
 std::chrono::high_resolution_clock::time_point t1, t2, t3;
 bool I1,I2,I3;
