@@ -10,7 +10,7 @@ extern "C" {
 }
  
 static int const geophone1=1; //18
-static int const geophone2=4; //23
+static int const geophone2=4; //27
 static int const geophone3=6; //25
 std::chrono::high_resolution_clock::time_point t1, t2, t3;
 bool I1,I2,I3;
@@ -168,8 +168,7 @@ static std::string dataFile = "ranges.txt";
         };
  
         int main(int argc, const char* argv[]) {
-        std::string response;
-        std::string pausePoint;
+                std::string response;
 		bool load = false;
 		wiringPiSetup();
 		pullUpDnControl(geophone1, PUD_DOWN);
@@ -187,43 +186,39 @@ static std::string dataFile = "ranges.txt";
 		}
                 for (MapPoint &m : locs) {
 			if (!load) {
-				for (int i=0; i<TIMES_TO_LEARN; i++) {
-					std::cout << "Currently waiting for: " << m.getName() << std::endl;
-					std::cout << "Press Enter to continue" << std::endl;
-					std::cin >> pausePoint;
-					I1=false;
-                			I2=false;
-                			I3=false;
-                			piThreadCreate(IT);
-                			piThreadCreate(IT2);
-                			piThreadCreate(IT3);
-					wiringPiISR(geophone1, INT_EDGE_RISING, storeTime1);
-					wiringPiISR(geophone2, INT_EDGE_RISING, storeTime2);
-					wiringPiISR(geophone3, INT_EDGE_RISING, storeTime3);               
-                			while (I1!=true || I2 != true || I3 != true) {
+			for (int i=0; i<TIMES_TO_LEARN; i++) {
+				std::cout << "Currently waiting for: " << m.getName() << std::endl;
+				I1=false;
+                		I2=false;
+                		I3=false;
+                		piThreadCreate(IT);
+                		piThreadCreate(IT2);
+                		piThreadCreate(IT3);
+				wiringPiISR(geophone1, INT_EDGE_RISING, storeTime1);
+				wiringPiISR(geophone2, INT_EDGE_RISING, storeTime2);
+				wiringPiISR(geophone3, INT_EDGE_RISING, storeTime3);               
+                		while (I1!=true || I2 != true || I3 != true) {
                         
-                			}
+                		}
  
-                			auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t2);
- 			 		auto nanos2 = std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t3);
-					auto nanos3 = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t3);
-                			double time1 = (double)nanos.count()/(double)1000000000;
-					double time2 = (double)nanos2.count()/(double)1000000000;
-					double time3 = (double)nanos3.count()/(double)1000000000;
-					m.updateTime(time1, time2, time3);
-					std::cout << time1 << " " << time2 << " " << time3 << std::endl;
-					std::this_thread::sleep_for(std::chrono::milliseconds(500));
-				}
-			//m.writeFile();
-			//int x;
-			//std::cout << "Enter new File name";
-			//std::cin >> x;
+                		auto nanos = std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t2);
+ 			 	auto nanos2 = std::chrono::duration_cast<std::chrono::nanoseconds>(t1 - t3);
+				auto nanos3 = std::chrono::duration_cast<std::chrono::nanoseconds>(t2 - t3);
+                		double time1 = (double)nanos.count()/(double)1000000000;
+				double time2 = (double)nanos2.count()/(double)1000000000;
+				double time3 = (double)nanos3.count()/(double)1000000000;
+				m.updateTime(time1, time2, time3);
+				std::cout << time1 << " " << time2 << " " << time3 << std::endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(500));
+			}
+			m.writeFile();
+			int x;
+			std::cin >> x;
 			}
 			if (load) m.readFile();
 			m.printValues();
 		}
 		while (true) {
-			std::cout << "Now in Main Loop" << std::endl;
 			I1=false;
                 	I2=false;
                 	I3=false;
